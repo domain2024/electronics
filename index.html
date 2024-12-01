@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electronics in Everyday Living</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: rgba(15, 32, 39, 0.9);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            text-shadow: 2px 2px #000;
+        }
+
+        #progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 5px;
+            background-color: #3a6073;
+            width: 0;
+            z-index: 999;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .section {
+            position: absolute;
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            transform: translateX(100%);
+            transition: all 1s ease-in-out;
+            opacity: 0;
+        }
+
+        .section.active {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .section.hidden {
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+
+        .section h2 {
+            font-size: 2rem;
+            color: #2c5364;
+            text-shadow: 1px 1px #fff;
+        }
+
+        .section p {
+            text-align: justify;
+            line-height: 1.8;
+            margin-top: 20px;
+            color: #333;
+        }
+
+        .section img {
+            width: 100%;
+            max-width: 400px; /* Reduced max width */
+            height: auto;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: white;
+            background-color: #3a6073;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-shadow: 1px 1px #000;
+        }
+
+        .btn:hover {
+            background-color: #2c5364;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Progress Bar -->
+    <div id="progress-bar"></div>
+
+    <header>
+        <h1>Electronics in Everyday Living</h1>
+    </header>
+
+    <div class="container">
+        <!-- Communication Section -->
+        <div id="communication" class="section active">
+            <h2>Communication</h2>
+            <img src="communication.jpg" alt="Communication Image">
+            <p>
+                Electronics have transformed communication into something faster, more efficient, and accessible to everyone. 
+                Devices such as smartphones and laptops, combined with the power of the internet, enable instant messaging, video calls, 
+                and emails across the globe.
+            </p>
+            <div class="buttons">
+                <button class="btn" onclick="showNext('healthcare')">Next</button>
+            </div>
+        </div>
+
+        <!-- Healthcare Section -->
+        <div id="healthcare" class="section">
+            <h2>Healthcare</h2>
+            <img src="healthcare.jpg" alt="Healthcare Image">
+            <p>
+                In healthcare, electronics have saved millions of lives by improving diagnostics and treatment options. 
+                Technologies such as MRI scanners, pacemakers, and wearable fitness trackers provide insights into patients' 
+                health and alert them to potential issues before they become critical.
+            </p>
+            <div class="buttons">
+                <button class="btn" onclick="showPrevious('communication')">Back</button>
+                <button class="btn" onclick="showNext('education')">Next</button>
+            </div>
+        </div>
+
+        <!-- Education Section -->
+        <div id="education" class="section">
+            <h2>Education</h2>
+            <img src="education.jpg" alt="Education Image">
+            <p>
+                Interactive tools such as smartboards, tablets, and e-learning platforms have revolutionized the way knowledge is shared. 
+                Students can now access a wealth of information from anywhere, breaking geographical and economic barriers to learning.
+            </p>
+            <div class="buttons">
+                <button class="btn" onclick="showPrevious('healthcare')">Back</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Handle navigation between sections
+        function showNext(nextSectionId) {
+            const current = document.querySelector('.section.active');
+            const next = document.getElementById(nextSectionId);
+
+            current.classList.remove('active');
+            current.classList.add('hidden');
+
+            next.classList.remove('hidden');
+            next.classList.add('active');
+        }
+
+        function showPrevious(previousSectionId) {
+            const current = document.querySelector('.section.active');
+            const previous = document.getElementById(previousSectionId);
+
+            current.classList.remove('active');
+            current.classList.add('hidden');
+
+            previous.classList.remove('hidden');
+            previous.classList.add('active');
+        }
+
+        // Scroll progress bar
+        window.onscroll = function () {
+            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const progress = (scrollTop / scrollHeight) * 100;
+            document.getElementById('progress-bar').style.width = progress + '%';
+        };
+    </script>
+</body>
+
+</html>
